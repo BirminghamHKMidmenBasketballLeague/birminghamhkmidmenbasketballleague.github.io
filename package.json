@@ -1,9 +1,9 @@
 {
-  "name": "demo-react-web",
+  "name": "BHK-League",
   "private": true,
   "version": "2.0.2",
   "type": "module",
-  "homepage": "https://dormanlee.github.io/demo-react-web",
+  "homepage": "https://birminghamhkmidmenbasketballleague.github.io/BHK-League",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
