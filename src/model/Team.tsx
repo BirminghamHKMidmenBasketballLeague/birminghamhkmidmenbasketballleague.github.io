@@ -1,35 +1,35 @@
 export interface Player {
-  id: number
+  id?: number
   image?: string
   name: string
   team: string
   number: string
-  position: string
-  age: number
+  position?: string
   height?: string
   weight?: string
   scores?: number
+  ftm?: number
   assists?: number
   rebounds?: number
   steals?: number
   blocks?: number
   turnovers?: number
   fouls?: number
-  minutes?: number
+  games?: number
   threePoints?: number
   penaltyShots?: number
   penaltyShotsIn?: number
 }
 
 export interface Team {
-  id: number
+  id?: number
   name: string
   logo?: string
   win?: number
   loss?: number
   draw?: number
   points?: number
-  lastMatch?: 'win' | 'loss' | 'draw'
+  lastMatch?: 'win' | 'loss' | 'draw' | 'undefined'
   matches?: number
   players: Player[]
 }

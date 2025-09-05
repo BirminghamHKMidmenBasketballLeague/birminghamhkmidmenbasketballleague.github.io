@@ -21,7 +21,6 @@ const columnMap: Record<string, (player: Player) => React.ReactNode> = {
   Name: (player) => player.name,
   Number: (player) => player.number,
   Position: (player) => player.position,
-  Age: (player) => player.age,
   Height: (player) => player.height,
   Weight: (player) => player.weight,
   Scores: (player) => player.scores,
@@ -31,8 +30,9 @@ const columnMap: Record<string, (player: Player) => React.ReactNode> = {
   Blocks: (player) => player.blocks,
   Turnovers: (player) => player.turnovers,
   Fouls: (player) => player.fouls,
-  Minutes: (player) => player.minutes,
-  '3PT': (player) => player.threePoints,
+  Games: (player) => player.games,
+  '3PM': (player) => player.threePoints,
+  FTM: (player) => player.ftm,
   'Penalty Shots': (player) => player.penaltyShots,
   'Penalty Shots In': (player) => player.penaltyShotsIn,
 }
@@ -43,36 +43,38 @@ export default function TeamMemberTable({
 }: TeamMemberTableProps) {
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
-      <div className="max-w-full overflow-x-auto">
-        <Table>
-          <TableHeader className="border-b border-gray-100 dark:border-white/[0.05]">
-            <TableRow>
-              {columns.map((col) => (
-                <TableCell
-                  key={col}
-                  isHeader
-                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
-                >
-                  {col}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHeader>
-          <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-            {data.map((player) => (
-              <TableRow key={player.id}>
+      <div className="overflow-x-auto w-full">
+        <div className="min-w-[1000px]">
+          <Table className="w-full table-auto">
+            <TableHeader className="border-b border-gray-100 dark:border-white/[0.05]">
+              <TableRow>
                 {columns.map((col) => (
                   <TableCell
                     key={col}
-                    className="px-4 py-3 text-start dark:text-white/80"
+                    isHeader
+                    className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
                   >
-                    {columnMap[col] ? columnMap[col](player) : null}
+                    {col}
                   </TableCell>
                 ))}
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
+              {data.map((player) => (
+                <TableRow key={player.id}>
+                  {columns.map((col) => (
+                    <TableCell
+                      key={col}
+                      className="px-4 py-3 text-start dark:text-white/80"
+                    >
+                      {columnMap[col] ? columnMap[col](player) : null}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     </div>
   )

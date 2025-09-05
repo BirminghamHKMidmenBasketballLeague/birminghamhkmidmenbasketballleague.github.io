@@ -54,8 +54,8 @@ export default function Matches({ onSelectChange }: MatchesProps) {
   return (
     <>
       <PageMeta
-        title="Demo | Template | Testing"
-        description="This is a demo page for testing purposes."
+        title="BHK League"
+        description="Birmingham HK Midmen Basketball League"
       />
       <PageBreadcrumb pageTitle="Matches" />
 
@@ -92,7 +92,7 @@ export default function Matches({ onSelectChange }: MatchesProps) {
                     </p>
                   </div>
                 </div>
-                <div className="relative flex flex-col items-center justify-center mt-6 mb-2">
+                <div className="relative flex items-center justify-center mt-6 mb-2">
                   <TeamMemberTable
                     data={selectedMatch.team.home.players}
                     columns={playerColumns}
@@ -117,7 +117,7 @@ export default function Matches({ onSelectChange }: MatchesProps) {
                     </p>
                   </div>
                 </div>
-                <div className="relative flex flex-col items-center justify-center mt-6 mb-2">
+                <div className="relative flex items-center justify-center mt-6 mb-2">
                   <TeamMemberTable
                     data={selectedMatch.team.away.players}
                     columns={playerColumns}

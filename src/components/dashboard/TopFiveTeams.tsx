@@ -95,7 +95,9 @@ export default function TopFiveTeams() {
                         ? 'success'
                         : team.lastMatch === 'draw'
                         ? 'warning'
-                        : 'error'
+                        : team.lastMatch === 'loss'
+                        ? 'error'
+                        : 'primary'
                     }
                   >
                     {team.lastMatch

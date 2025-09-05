@@ -69,7 +69,7 @@ export default function MatchResult({ match }: MatchResultProps) {
         { label: 'Scores', value: player.scores },
         { label: 'Assists', value: player.assists },
         { label: 'Three Points', value: player.threePoints },
-        { label: 'Minutes', value: player.minutes },
+        { label: 'Games', value: player.games },
       ]
     } else if (modalType === 'defense') {
       player = bestDefender
@@ -79,7 +79,7 @@ export default function MatchResult({ match }: MatchResultProps) {
         { label: 'Steals', value: player.steals },
         { label: 'Rebounds', value: player.rebounds },
         { label: 'Fouls', value: player.fouls },
-        { label: 'Minutes', value: player.minutes },
+        { label: 'Games', value: player.games },
       ]
     } else {
       player = mvp
@@ -88,7 +88,7 @@ export default function MatchResult({ match }: MatchResultProps) {
         { label: 'Scores', value: player.scores },
         { label: 'Assists', value: player.assists },
         { label: 'Rebounds', value: player.rebounds },
-        { label: 'Minutes', value: player.minutes },
+        { label: 'Games', value: player.games },
         { label: 'Blocks', value: player.blocks },
         { label: 'Steals', value: player.steals },
         { label: 'Fouls', value: player.fouls },

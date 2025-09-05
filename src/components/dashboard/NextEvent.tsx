@@ -53,7 +53,7 @@ export default function NextEvent() {
   const isSoon = nextEvent.date.getTime() - Date.now() < 24 * 60 * 60 * 1000
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6">
+    <div className="gap-4 sm:grid-cols-2 md:gap-6">
       {/* <!-- Metric Item Start --> */}
       <div
         onClick={openModal}

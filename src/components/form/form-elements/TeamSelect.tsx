@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import ComponentCard from '../../common/ComponentCard'
 import MultiSelect from '../MultiSelect'
 
 interface TeamSelectProps {

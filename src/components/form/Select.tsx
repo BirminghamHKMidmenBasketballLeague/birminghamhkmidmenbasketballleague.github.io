@@ -55,7 +55,7 @@ const Select: React.FC<SelectProps> = ({
 
   return (
     <div className={`w-full ${className}`} ref={dropdownRef}>
-      <div className="relative z-100 inline-block w-full">
+      <div className="relative z-40 inline-block w-full">
         <div className="relative flex flex-col items-center">
           <div onClick={() => setIsOpen((prev) => !prev)} className="w-full">
             <div className="mb-2 flex h-11 rounded-lg border border-gray-300 py-1.5 pl-3 pr-3 shadow-theme-xs outline-none transition focus:border-brand-300 focus:shadow-focus-ring dark:border-gray-700 dark:bg-gray-900 dark:focus:border-brand-300 cursor-pointer">

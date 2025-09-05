@@ -23,8 +23,8 @@ export default function TeamPage() {
   return (
     <div>
       <PageMeta
-        title="Demo | Template | Testing"
-        description="This is a demo page for testing purposes."
+        title="BHK League"
+        description="Birmingham HK Midmen Basketball League"
       />
       <PageBreadcrumb pageTitle="Teams" />
 

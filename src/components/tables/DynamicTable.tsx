@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react'
+import React from 'react'
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '../ui/table'
 import Badge from '../ui/badge/Badge'
 import { Modal } from '../ui/modal'
@@ -305,110 +305,112 @@ export default function DynamicTable<T extends Record<string, any>>({
         </div>
       </div>
       <div className="max-w-full overflow-x-auto">
-        <Table>
-          {/* Table Header */}
-          <TableHeader className="border-gray-100 dark:border-gray-800 border-y">
-            <TableRow>
-              <TableCell
-                isHeader
-                className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
-              >
-                {/* First column: main (image/name/desc) */}
-                {getNameField(firstRow) ? 'Name' : 'Main'}
-              </TableCell>
-              {headers.slice(1).map((header) =>
-                header === statusKey ? null : (
-                  <TableCell
-                    key={header}
-                    isHeader
-                    className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
-                  >
-                    {header.charAt(0).toUpperCase() + header.slice(1)}
-                  </TableCell>
-                )
-              )}
-              {statusKey && (
+        <div className="min-w-[600px] sm:min-w-[800px] lg:min-w-[1000px]">
+          <Table>
+            {/* Table Header */}
+            <TableHeader className="border-gray-100 dark:border-gray-800 border-y">
+              <TableRow>
                 <TableCell
                   isHeader
                   className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
                 >
-                  {statusKey.charAt(0).toUpperCase() + statusKey.slice(1)}
+                  {/* First column: main (image/name/desc) */}
+                  {getNameField(firstRow) ? 'Name' : 'Main'}
                 </TableCell>
-              )}
-            </TableRow>
-          </TableHeader>
-
-          {/* Table Body */}
-          <TableBody className="divide-y divide-gray-100 dark:divide-gray-800">
-            {pagedData.map((row) => {
-              const image = getImageField(row)
-              const name = getNameField(row)
-              const desc = getDescriptionField(row)
-              const status = getStatusField(row)
-              const isHighlighted = highlightedIds.includes(getId(row))
-              return (
-                <TableRow
-                  key={getId(row)}
-                  className={
-                    isHighlighted ? 'bg-yellow-100 dark:bg-yellow-900/30' : ''
-                  }
-                >
-                  {/* First column: image, name, desc */}
-                  <TableCell className="py-3">
-                    <div className="flex items-center gap-3">
-                      {image && (
-                        <div className="h-[50px] w-[50px] overflow-hidden rounded-md">
-                          <img src={image} className="h-[50px] w-[50px]" />
-                        </div>
-                      )}
-                      <div>
-                        <p className="font-medium text-gray-800 text-theme-sm dark:text-white/90">
-                          {name || '-'}
-                        </p>
-                        {desc && (
-                          <span className="text-gray-500 text-theme-xs dark:text-gray-400">
-                            {desc}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </TableCell>
-                  {/* Other columns */}
-                  {headers.slice(1).map((header) => {
-                    if (header === statusKey) return null
-                    // Don't repeat name/desc/image
-                    if (
-                      [image, name, desc].some(
-                        (val) => val && row[header] === val
-                      )
-                    )
-                      return null
-                    return (
-                      <TableCell
-                        key={header}
-                        className="py-3 text-gray-500 text-theme-sm dark:text-gray-400"
-                      >
-                        {typeof row[header] === 'boolean'
-                          ? row[header]
-                            ? 'Yes'
-                            : 'No'
-                          : row[header] ?? '-'}
-                      </TableCell>
-                    )
-                  })}
-                  {/* Status column */}
-                  {statusKey && status && (
-                    <TableCell className="py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                      <Badge size="sm" color={getBadgeColor(status.value)}>
-                        {status.value}
-                      </Badge>
+                {headers.slice(1).map((header) =>
+                  header === statusKey ? null : (
+                    <TableCell
+                      key={header}
+                      isHeader
+                      className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                    >
+                      {header.charAt(0).toUpperCase() + header.slice(1)}
                     </TableCell>
-                  )}
-                </TableRow>
-              )
-            })}
-          </TableBody>
-        </Table>
+                  )
+                )}
+                {statusKey && (
+                  <TableCell
+                    isHeader
+                    className="py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                  >
+                    {statusKey.charAt(0).toUpperCase() + statusKey.slice(1)}
+                  </TableCell>
+                )}
+              </TableRow>
+            </TableHeader>
+
+            {/* Table Body */}
+            <TableBody className="divide-y divide-gray-100 dark:divide-gray-800">
+              {pagedData.map((row) => {
+                const image = getImageField(row)
+                const name = getNameField(row)
+                const desc = getDescriptionField(row)
+                const status = getStatusField(row)
+                const isHighlighted = highlightedIds.includes(getId(row))
+                return (
+                  <TableRow
+                    key={getId(row)}
+                    className={
+                      isHighlighted ? 'bg-yellow-100 dark:bg-yellow-900/30' : ''
+                    }
+                  >
+                    {/* First column: image, name, desc */}
+                    <TableCell className="py-3">
+                      <div className="flex items-center gap-3">
+                        {image && (
+                          <div className="h-[50px] w-[50px] overflow-hidden rounded-md">
+                            <img src={image} className="h-[50px] w-[50px]" />
+                          </div>
+                        )}
+                        <div>
+                          <p className="font-medium text-gray-800 text-theme-sm dark:text-white/90">
+                            {name || '-'}
+                          </p>
+                          {desc && (
+                            <span className="text-gray-500 text-theme-xs dark:text-gray-400">
+                              {desc}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </TableCell>
+                    {/* Other columns */}
+                    {headers.slice(1).map((header) => {
+                      if (header === statusKey) return null
+                      // Don't repeat name/desc/image
+                      if (
+                        [image, name, desc].some(
+                          (val) => val && row[header] === val
+                        )
+                      )
+                        return null
+                      return (
+                        <TableCell
+                          key={header}
+                          className="py-3 text-gray-500 text-theme-sm dark:text-gray-400"
+                        >
+                          {typeof row[header] === 'boolean'
+                            ? row[header]
+                              ? 'Yes'
+                              : 'No'
+                            : row[header] ?? '-'}
+                        </TableCell>
+                      )
+                    })}
+                    {/* Status column */}
+                    {statusKey && status && (
+                      <TableCell className="py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+                        <Badge size="sm" color={getBadgeColor(status.value)}>
+                          {status.value}
+                        </Badge>
+                      </TableCell>
+                    )}
+                  </TableRow>
+                )
+              })}
+            </TableBody>
+          </Table>
+        </div>
       </div>
       {/* Paging controls */}
       <div className="flex items-center justify-between mt-4">

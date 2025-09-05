@@ -14,7 +14,8 @@ interface MultiSelectProps {
   disabled?: boolean
 }
 
-const maxVisible = window.innerWidth > 1200 ? 8 : 4 // Show up to 4, then ...
+const maxVisible =
+  window.innerWidth > 1200 ? 8 : window.innerWidth > 570 ? 4 : 1 // Show up to 4, then ...
 
 const MultiSelect: React.FC<MultiSelectProps> = ({
   label,

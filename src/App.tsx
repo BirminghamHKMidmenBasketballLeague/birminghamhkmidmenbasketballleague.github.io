@@ -56,7 +56,10 @@ export default function App() {
 
             {/* Demo Pages */}
             <Route path="/teams" element={<TeamPage />} />
-            <Route path="/matches" element={<Matches />} />
+            <Route
+              path="/matches"
+              element={<Matches onSelectChange={() => {}} />}
+            />
             <Route path="/ranking" element={<Ranking />} />
             <Route path="/calendar" element={<Calendar />} />
           </Route>

@@ -104,8 +104,8 @@ const Calendar: React.FC = () => {
   return (
     <>
       <PageMeta
-        title="Demo | Template | Testing"
-        description="This is a demo page for testing purposes."
+        title="BHK League"
+        description="Birmingham HK Midmen Basketball League"
       />
       <div className="rounded-2xl border  border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
         <div className="custom-calendar">
