@@ -9,6 +9,7 @@ export interface Player {
   weight?: string
   scores?: number
   ftm?: number
+  eff?: number
   assists?: number
   rebounds?: number
   steals?: number

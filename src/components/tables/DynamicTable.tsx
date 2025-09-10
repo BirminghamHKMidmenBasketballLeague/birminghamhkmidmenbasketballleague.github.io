@@ -65,14 +65,6 @@ function getDescriptionField(obj: Record<string, any>): string | undefined {
       return obj[key]
     }
   }
-  // fallback: second string field
-  let count = 0
-  for (const key in obj) {
-    if (typeof obj[key] === 'string') {
-      count++
-      if (count === 2) return obj[key]
-    }
-  }
   return undefined
 }
 
@@ -359,7 +351,14 @@ export default function DynamicTable<T extends Record<string, any>>({
                       <div className="flex items-center gap-3">
                         {image && (
                           <div className="h-[50px] w-[50px] overflow-hidden rounded-md">
-                            <img src={image} className="h-[50px] w-[50px]" />
+                            <img
+                              src={image}
+                              className="h-[50px] w-[50px]"
+                              onError={(e) =>
+                                (e.currentTarget.src =
+                                  '/images/player/unknown.jpg')
+                              }
+                            />
                           </div>
                         )}
                         <div>

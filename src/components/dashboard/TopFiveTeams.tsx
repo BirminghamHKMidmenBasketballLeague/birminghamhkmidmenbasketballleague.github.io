@@ -69,6 +69,9 @@ export default function TopFiveTeams() {
                         src={team.logo}
                         className="h-[50px] w-[50px]"
                         alt={team.name}
+                        onError={(e) =>
+                          (e.currentTarget.src = '/images/player/unknown.jpg')
+                        }
                       />
                     </div>
                     <div>

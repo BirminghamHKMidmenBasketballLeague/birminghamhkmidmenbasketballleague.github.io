@@ -21,15 +21,21 @@ const multiListOptions: Subcategory[] = [
   },
   {
     category: 'player',
-    value: 'offense',
-    label: 'Best Offenser',
-    text: 'Best Offenser',
+    value: 'scorer',
+    label: 'Leader Scorer',
+    text: 'Leader Scorer',
   },
   {
     category: 'player',
-    value: 'defense',
-    label: 'Best Defender',
-    text: 'Best Defender',
+    value: 'threept',
+    label: '3PT Leader',
+    text: '3PT Leader',
+  },
+  {
+    category: 'player',
+    value: 'ft',
+    label: 'FT Leader',
+    text: 'FT Leader',
   },
   {
     category: 'player',
@@ -68,60 +74,49 @@ export default function Ranking() {
     const allPlayers = teams.flatMap((team) =>
       team.players.map((player) => ({ ...player, team: team.name }))
     )
-    if (selectedMulti.includes('offense')) {
+    if (selectedMulti.includes('scorer')) {
       tableBlocks.push({
         tableData: [...allPlayers]
-          .sort(
-            (a, b) =>
-              (b.scores || 0) +
-              (b.assists || 0) -
-              ((a.scores || 0) + (a.assists || 0))
-          )
+          .sort((a, b) => (b.scores || 0) - (a.scores || 0))
           .slice(0, 10)
-          .map(({ name, image, team, number, position, scores, assists }) => ({
-            name,
+          .map(({ name, image, team, number, position, scores }) => ({
+            name: number ? `${name} (${number})` : name,
             image,
             team,
-            number,
             position,
             scores,
-            assists,
           })),
-        tableName: 'Best Offenser',
+        tableName: 'Leader Scorer',
       })
     }
-    if (selectedMulti.includes('defense')) {
+    if (selectedMulti.includes('threept')) {
       tableBlocks.push({
         tableData: [...allPlayers]
-          .sort(
-            (a, b) =>
-              (b.blocks || 0) +
-              (b.steals || 0) -
-              ((a.blocks || 0) + (a.steals || 0))
-          )
+          .sort((a, b) => (b.threePoints || 0) - (a.threePoints || 0))
           .slice(0, 10)
-          .map(
-            ({
-              name,
-              image,
-              team,
-              number,
-              position,
-              rebounds,
-              blocks,
-              steals,
-            }) => ({
-              name,
-              image,
-              team,
-              number,
-              position,
-              rebounds,
-              blocks,
-              steals,
-            })
-          ),
-        tableName: 'Best Defender',
+          .map(({ name, image, team, number, position, threePoints }) => ({
+            name: number ? `${name} (${number})` : name,
+            image,
+            team,
+            position,
+            threePoints,
+          })),
+        tableName: '3PT Leader',
+      })
+    }
+    if (selectedMulti.includes('ft')) {
+      tableBlocks.push({
+        tableData: [...allPlayers]
+          .sort((a, b) => (b.ftm || 0) - (a.ftm || 0))
+          .slice(0, 10)
+          .map(({ name, image, team, number, position, ftm }) => ({
+            name: number ? `${name} (${number})` : name,
+            image,
+            team,
+            position,
+            ftm,
+          })),
+        tableName: 'FT Leader',
       })
     }
     if (selectedMulti.includes('mvp')) {
@@ -154,10 +149,9 @@ export default function Ranking() {
               blocks,
               steals,
             }) => ({
-              name,
+              name: number ? `${name} (${number})` : name,
               image,
               team,
-              number,
               position,
               scores,
               assists,
@@ -174,7 +168,7 @@ export default function Ranking() {
 
   return (
     <>
-      <PageMeta title="Ranking Template" description="Ranking Template" />
+      <PageMeta title="BHK League" description="BHK League" />
       <div className="grid grid-cols-12 gap-4 md:gap-6">
         <div className="col-span-12">
           <SingleMultiSelect

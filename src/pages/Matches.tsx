@@ -16,16 +16,14 @@ const playerColumns = [
   'Number',
   'Position',
   'Scores',
+  '3PM',
+  'FTM',
+  'Fouls',
   'Assists',
   'Rebounds',
   'Steals',
   'Blocks',
   'Turnovers',
-  'Fouls',
-  'Minutes',
-  '3PT',
-  'Penalty Shots',
-  'Penalty Shots In',
 ]
 
 const options: Option[] = matches.map((match) => ({

@@ -3,14 +3,14 @@
   "private": true,
   "version": "2.0.2",
   "type": "module",
-  "homepage": "https://birminghamhkmidmenbasketballleague.github.io/BHK-League",
+  "homepage": "https://birminghamhkmidmenbasketballleague.github.io/BHK-League-Web/",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "npm run build && gh-pages -d dist"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.15",

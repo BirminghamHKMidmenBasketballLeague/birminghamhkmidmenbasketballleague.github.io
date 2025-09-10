@@ -11,25 +11,25 @@ interface MatchResultProps {
 export default function MatchResult({ match }: MatchResultProps) {
   const { isOpen, openModal, closeModal } = useModal()
   const [modalType, setModalType] = useState<
-    'offense' | 'defense' | 'mvp' | null
+    'scorer' | 'threept' | 'ft' | 'mvp' | null
   >(null)
 
-  // Find best offense (highest scores), best defender (highest blocks+steals), MVP (highest scores+assists+rebounds)
+  // Find leaders
   const allPlayers: Player[] = [
     ...match.team.home.players,
     ...match.team.away.players,
   ]
-  const bestOffenser = allPlayers.reduce(
-    (prev, curr) =>
-      curr.scores && (prev.scores ?? 0) < curr.scores ? curr : prev,
+  const leaderScorer = allPlayers.reduce(
+    (prev, curr) => ((curr.scores ?? 0) > (prev.scores ?? 0) ? curr : prev),
     allPlayers[0]
   )
-  const bestDefender = allPlayers.reduce(
+  const leaderThreePt = allPlayers.reduce(
     (prev, curr) =>
-      (curr.blocks ?? 0) + (curr.steals ?? 0) >
-      (prev.blocks ?? 0) + (prev.steals ?? 0)
-        ? curr
-        : prev,
+      (curr.threePoints ?? 0) > (prev.threePoints ?? 0) ? curr : prev,
+    allPlayers[0]
+  )
+  const leaderFT = allPlayers.reduce(
+    (prev, curr) => ((curr.ftm ?? 0) > (prev.ftm ?? 0) ? curr : prev),
     allPlayers[0]
   )
   const mvp = allPlayers.reduce(
@@ -47,7 +47,7 @@ export default function MatchResult({ match }: MatchResultProps) {
   const homeWin = homeScore > awayScore
   const awayWin = awayScore > homeScore
 
-  function openModalType(type: 'offense' | 'defense' | 'mvp') {
+  function openModalType(type: 'scorer' | 'threept' | 'ft' | 'mvp') {
     setModalType(type)
     openModal()
   }
@@ -62,24 +62,27 @@ export default function MatchResult({ match }: MatchResultProps) {
     let player: Player
     let title = ''
     let stats: { label: string; value: any }[] = []
-    if (modalType === 'offense') {
-      player = bestOffenser
-      title = `Best Offenser`
+    if (modalType === 'scorer') {
+      player = leaderScorer
+      title = `Leader Scorer`
       stats = [
         { label: 'Scores', value: player.scores },
         { label: 'Assists', value: player.assists },
         { label: 'Three Points', value: player.threePoints },
-        { label: 'Games', value: player.games },
       ]
-    } else if (modalType === 'defense') {
-      player = bestDefender
-      title = `Best Defender`
+    } else if (modalType === 'threept') {
+      player = leaderThreePt
+      title = `3PT Leader`
       stats = [
-        { label: 'Blocks', value: player.blocks },
-        { label: 'Steals', value: player.steals },
-        { label: 'Rebounds', value: player.rebounds },
-        { label: 'Fouls', value: player.fouls },
-        { label: 'Games', value: player.games },
+        { label: 'Three Points', value: player.threePoints },
+        { label: 'Scores', value: player.scores },
+      ]
+    } else if (modalType === 'ft') {
+      player = leaderFT
+      title = `FT Leader`
+      stats = [
+        { label: 'Free Throws', value: player.ftm },
+        { label: 'Scores', value: player.scores },
       ]
     } else {
       player = mvp
@@ -88,7 +91,6 @@ export default function MatchResult({ match }: MatchResultProps) {
         { label: 'Scores', value: player.scores },
         { label: 'Assists', value: player.assists },
         { label: 'Rebounds', value: player.rebounds },
-        { label: 'Games', value: player.games },
         { label: 'Blocks', value: player.blocks },
         { label: 'Steals', value: player.steals },
         { label: 'Fouls', value: player.fouls },
@@ -157,7 +159,7 @@ export default function MatchResult({ match }: MatchResultProps) {
               {awayScore}
             </span>
           </div>
-          <div className="flex justify-between w-full max-w-xs mt-2 text-center text-base font-medium">
+          <div className="flex justify-between w-full max-w-xs mt-2 text-center text-base font-medium dark:text-gray-400">
             <span className="flex-1">{match.team.home.name}</span>
             <span className="flex-1">{match.team.away.name}</span>
           </div>
@@ -174,29 +176,38 @@ export default function MatchResult({ match }: MatchResultProps) {
         </div>
         {/* End Score display */}
 
-        {/* Best Offenser, Defender, MVP */}
+        {/* Leader Scorer, 3PT Leader, FT Leader, MVP */}
         <div className="flex items-center justify-center gap-5 px-6 py-3.5 sm:gap-8 sm:py-5 mt-6">
           <div
             className="cursor-pointer"
-            onClick={() => openModalType('offense')}
+            onClick={() => openModalType('scorer')}
           >
             <p className="mb-1 text-center text-gray-500 text-theme-xs dark:text-gray-400 sm:text-sm">
-              Best Offenser
+              Leader Scorer
             </p>
             <p className="flex items-center justify-center gap-1 text-base font-semibold text-blue-700 dark:text-blue-400 sm:text-lg">
-              {bestOffenser.name}
+              {leaderScorer.name}
             </p>
           </div>
           <div className="w-px bg-gray-200 h-7 dark:bg-gray-800"></div>
           <div
             className="cursor-pointer"
-            onClick={() => openModalType('defense')}
+            onClick={() => openModalType('threept')}
           >
             <p className="mb-1 text-center text-gray-500 text-theme-xs dark:text-gray-400 sm:text-sm">
-              Best Defender
+              3PT Leader
+            </p>
+            <p className="flex items-center justify-center gap-1 text-base font-semibold text-orange-700 dark:text-orange-400 sm:text-lg">
+              {leaderThreePt.name}
+            </p>
+          </div>
+          <div className="w-px bg-gray-200 h-7 dark:bg-gray-800"></div>
+          <div className="cursor-pointer" onClick={() => openModalType('ft')}>
+            <p className="mb-1 text-center text-gray-500 text-theme-xs dark:text-gray-400 sm:text-sm">
+              FT Leader
             </p>
             <p className="flex items-center justify-center gap-1 text-base font-semibold text-green-700 dark:text-green-400 sm:text-lg">
-              {bestDefender.name}
+              {leaderFT.name}
             </p>
           </div>
           <div className="w-px bg-gray-200 h-7 dark:bg-gray-800"></div>

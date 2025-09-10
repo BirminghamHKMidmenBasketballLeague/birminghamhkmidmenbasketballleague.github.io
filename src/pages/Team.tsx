@@ -13,11 +13,13 @@ export default function TeamPage() {
     'Player',
     'Name',
     'Number',
+    'Points',
+    'Fouls',
   ])
 
   const handleOptionsChange = (teams: string[], columns: string[]) => {
     setSelectedTeams(teams)
-    setSelectedColumns(columns.length ? columns : ['Player', 'Name', 'Number'])
+    setSelectedColumns(columns.length ? columns : [])
   }
 
   return (

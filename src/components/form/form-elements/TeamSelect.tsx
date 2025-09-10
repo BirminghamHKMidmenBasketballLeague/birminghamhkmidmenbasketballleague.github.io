@@ -13,11 +13,7 @@ export default function TeamSelect({
   onChange,
 }: TeamSelectProps) {
   const [selectedTeams, setSelectedTeams] = useState<string[]>([])
-  const [selectedColumns, setSelectedColumns] = useState<string[]>([
-    'Player',
-    'Name',
-    'Number',
-  ])
+  const [selectedColumns, setSelectedColumns] = useState<string[]>([])
 
   const handleTeamsChange = (values: string[]) => {
     setSelectedTeams(values)
@@ -38,7 +34,7 @@ export default function TeamSelect({
   const multiColumnOptions = columnOptions.map((opt) => ({
     value: opt,
     text: opt,
-    selected: ['Player', 'Name', 'Number'].includes(opt),
+    selected: false,
   }))
 
   return (

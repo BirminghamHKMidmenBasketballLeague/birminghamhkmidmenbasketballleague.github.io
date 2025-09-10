@@ -136,7 +136,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
                 ) : (
                   <input
                     placeholder="Select option"
-                    className="w-full h-full p-1 pr-2 text-sm bg-transparent border-0 outline-none appearance-none placeholder:text-gray-800 focus:border-0 focus:outline-none focus:ring-0 dark:placeholder:text-white/90"
+                    className="w-full h-full p-1 pr-2 text-sm bg-transparent border-0 outline-none appearance-none placeholder:text-gray-800 focus:border-0 focus:outline-none focus:ring-0 dark:text-gray-400"
                     readOnly
                     value="Select option"
                   />
